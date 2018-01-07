@@ -317,6 +317,14 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 
 #pragma mark - WKNavigationDelegate methods
 
+// TEMP https://stackoverflow.com/a/31260637/2602426
+- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler {
+  NSURLCredential *credential = [[NSURLCredential alloc] initWithUser:@"bob"
+                                                             password:@"pass"
+                                                          persistence:NSURLCredentialPersistenceNone];
+  completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+}
+
 - (void)webView:(__unused WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
   UIApplication *app = [UIApplication sharedApplication];
